@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 Simone Rubino - Agile Business Group
+     Copyright 2018 ForgeFlow S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_stock_move_line_operation_tree_cost_retail" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.tree.cost.retail</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="cost_value" invisible="1"/>
+                <field name="retail_value" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_stock_move_line_detailed_operation_tree_cost_retail" model="ir.ui.view">
+        <field name="name">stock.move.line.detailed.operations.tree.cost.retail</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="cost_value" invisible="1"></field>
+                <field name="retail_value" invisible="1"></field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_line_tree_cost_retail" model="ir.ui.view">
+        <field name="name">view.move.line.tree.cost.retail</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_done']" position="after">
+                <field name="cost_value" />
+                <field name="retail_value" string="Retail" />
+                <field name="retail_value_qty" string="Retail Total"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

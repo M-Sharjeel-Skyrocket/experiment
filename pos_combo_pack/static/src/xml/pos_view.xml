@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve"> 
+    <t t-name="OwnPizzaWidget" owl="1">
+        <style>
+            .pos .modal-dialog .popup{
+                max-width:100%;
+            }
+
+        </style>
+        <div class='modal-dialog'>
+            <div class="popup popup-confirm" style="width:85% ! important;">
+                <t t-if="props.data">
+                    <div class="popup popup-selection"
+                         style="width:100% ! important; background-color: #fff9c4; ">
+                        <p class="title">Make Own Pizza</p>
+                        <div class='main_product_id' t-att-data-product_id="props.main_product">
+                            <!--                            <script type="text/javascript">-->
+                            <!--                                $('#tabs').tabs().addClass('ui-tabs-vertical ui-helper-clearfix');-->
+                            <!--                            </script>-->
+
+                            <div id="tabs">
+                                <ul class="list-group">
+                                    <li style="background: white; width: 275px; padding:10px 5px; height: 207px;
+                                    font-size: 12px; border: 5px solid black;" class="order-menu list-group-item">
+                                    </li>
+                                    <li style="background: white; padding: 2% 0; border: 2px solid black; width: 290px;"
+                                        class="list-group-item">
+                                        <div style="float:right; margin-right:2%;">Total: <span
+                                                class="total-pricel">0</span></div>
+                                    </li>
+                                    <t t-foreach="props.data" t-as="categ" t-key="categ.categ_id">
+                                        <li class="list-group-item w-100" style="background-color: white !important;">
+                                            <a t-attf-href="#a#{categ.categ_id}"><t t-esc="categ.category"/></a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </div>
+                        <t t-foreach="props.data" t-as="categ" t-key="categ.categ_id">
+                            <div class="d-flex flex-row">
+                                <div t-attf-id="a#{categ.categ_id}" class="d-flex justify-content-around">
+                                    <t t-foreach="categ.products" t-as="p" t-key="p.id">
+                                        <div style="margin: 12px;" t-on-click="clickProduct">
+                                        <span class='product pos_topp_product' t-att-data-my="categ.multi_selection"
+                                              t-att-data-product-id="p.id" t-att-data-category-id="categ.categ_id">
+                                            <span class="multi_selection" style="color: white;"><t t-esc="categ.multi_selection"/></span>
+                                            <div class="product-img">
+                                                <img t-attf-src='/web/image?model=product.template&#38;field=image_128&#38;id=#{p.id}'/>
+                                                <t t-if="!p.to_weight">
+                                                    <span class="price-tag">
+                                                        <t t-esc="env.pos.format_currency(p.lst_price,'Product Price')"/>
+                                                    </span>
+                                                </t>
+                                                <t t-if="p.to_weight">
+                                                    <span class="price-tag">
+                                                        <t t-esc="env.pos.format_currency(p.lst_price,'Product Price')+'/'+props.pos.units_by_id[p.uom_id[0]].name"/>
+                                                    </span>
+                                                </t>
+                                            </div>
+                                            <div class="product-name">
+                                                <t t-esc="p.display_name"/>
+                                            </div>
+                                        </span></div>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                        <div class="footer">
+                            <div class="button confirm" t-on-click="confirm">
+                                <t t-esc="props.confirmText"/>
+                            </div>
+                            <div class="button cancel" t-on-click="cancel">
+                                <t t-esc="props.cancelText"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ComboPack" owl="1">
+        <style type="text/css">
+            <![CDATA[
+                .width-100 {
+                    width: 97%;
+                }
+                .width-50 {
+                    width: 47%;
+                }
+            ]]>
+        </style>
+        <div role="dialog" class="modal-dialog">
+			<div class="popup" style="height: 170px ! important">
+                <t t-if="props.data">
+					<div class="popup popup-selection">
+		                <p class="title combo-title"><t t-esc="props.title"/></p>
+                        <div class='scrollable-y touch-scrollable combo_product_id'
+                             t-att-data-product_id="props.main_product" style="height: 275px;">
+                            <table style="width: 100%;">
+                                <tr t-foreach="props.data" t-as="categ" t-key="categ.categ_id">
+                                    <td>
+                                        <span style="float:left; margin-left:25px; margin-right:15px; font-size: 20px;">
+                                            <t t-esc="categ.category"/>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <select class="product_combo_select width-100"
+                                                style="height:46px;"
+                                                t-att-data-qty="categ.qty" required="True">
+                                            <option>Select Your Food....</option>
+                                            <t t-foreach="categ.products" t-as="p" t-key="p.id">
+                                                <t t-if="p">
+                                                    <option t-att-value="p.id"><t t-esc="p.display_name"/></option>
+                                                </t>
+                                            </t>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div t-if="categ.hnh" class="button process_hnh hnh" style="width:50px;"
+                                             t-on-click="process_hnh">
+                                            H/H <i class="fa fa-angle-down"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="margin-top:10px;font-size: 20px;">
+		                    	Fix Products
+		                    </div>
+                            <t t-foreach="props.fix_pack_data" t-as="fix_pro_data" t-key="fix_pro_data.products.id">
+                                <t t-if="fix_pro_data.products.id">
+                                    <span class='product fix_product' t-att-data-product-id="fix_pro_data.products.id">
+                                        <div class="product-img">
+                                                <img t-attf-src='/web/image?model=product.template&#38;field=image_128&#38;id=#{fix_pro_data.products.id}'/>
+                                            <span class="price-tag">
+                                                    <t t-esc="fix_pro_data.qty"/>
+                                            </span>
+                                        </div>
+                                        <div class="product-name">
+                                            <t t-esc="fix_pro_data.products.display_name"/>
+                                        </div>
+                                    </span>
+                                </t>
+                            </t>
+		                </div>
+                        <small class="flavour-warning" style="display: none; position: relative; left: 12px; ">
+                            Please flavour first! then confirm.</small>
+
+                        <div class="footer">
+                            <div id="combo-qty">Qty:
+                                <button type="button" id="minus" class="minus" t-on-click="minus_qty">
+                                    <i class="fa fa-minus" aria-hidden="true" style="vertical-align: middle;"></i>
+                                </button>
+                                <input type="number" id="1" value="1" min="1" style="width: 23%;" disabled="1"/>
+                                <button type="button" id="add_qty" class="add_qty" t-on-click="add_qty">
+                                    <i class="fa fa-plus" aria-hidden="true" style="vertical-align: middle;"></i>
+                                </button>
+                            </div>
+                            <div class="button confirm" t-on-click="confirm">
+                                <t t-esc="props.confirmText"/>
+                            </div>
+                            <div class="button cancel" t-on-click="cancel">
+                                <t t-esc="props.cancelText"/>
+                            </div>
+		                </div>
+		            </div>
+                </t>
+			</div>
+		</div>
+	</t>
+
+    <t t-inherit="point_of_sale.ProductItem" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('product-img')]" position="inside">
+            <t t-if="props.product.is_pack">
+                <div class="product_pack">
+                   Combo Pack
+                </div>
+            </t>
+            <t t-if="props.product.is_extra">
+                <div class="product_extra">
+                   Make my Own
+               </div>
+            </t>
+        </xpath>
+    </t>
+
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+        <xpath expr="//ul[@class='info-list']/t" position="after">
+            <t t-if="props.line.get_product().is_pack">
+                <i style="color: green; font-size:13px;">
+                    <t t-if="props.line.pack_data">
+                        <t t-foreach="props.line.pack_data" t-as="pos_pack" t-key="pos_pack_index">
+                            <div>
+                               &#187; <t t-esc="pos_pack.product_id.display_name"/>
+                                :-
+                                <t t-esc="pos_pack.qty * props.line.quantity"/>
+                            </div>
+                        </t>
+                    </t>
+                </i>
+            </t>
+            <t t-if="props.line.get_product().is_extra">
+                <i style="color: green; font-size:13px;">
+                    <t t-if="props.line.order_menu">
+                        <t t-foreach="props.line.order_menu" t-as="order_menu" t-key="order_menu_index">
+                            <div>&#187;
+                                <t t-esc="order_menu.categoryName"/>
+                            </div>
+                            <t t-foreach="order_menu.products" t-as="product" t-key="product.id">
+                                <div style="margin-left: 15px;">&#187;
+                                    <t t-esc="product.product_name"/>
+                                    :-
+                                    <t t-esc="props.line.quantity"/>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </i>
+            </t>
+        </xpath>
+    </t>
+</templates>

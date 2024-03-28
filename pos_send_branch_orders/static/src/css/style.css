@@ -1,0 +1,18 @@
+.cc-orders-table {
+  font-family: 'Arial';
+  font-weight: lighter;
+  font-size: small;
+}
+
+.ms-options ul li label input {
+  width: auto !important;
+  min-height: auto !important;
+}
+.ms-options ul li label {
+  font-size: small;
+}
+#cc-orders {
+    height: 400px;
+    padding: 0px 20px;
+    overflow-y: auto;
+}

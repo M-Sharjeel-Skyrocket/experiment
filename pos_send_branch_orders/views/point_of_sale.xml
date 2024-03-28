@@ -1,0 +1,20 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--     <template id="assets" inherit_id="point_of_sale.assets">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <script type="text/javascript" src="/pos_send_branch_orders/static/lib/multi-select/jquery.multiselect.js"></script>-->
+<!--            <script type="text/javascript" src="/pos_send_branch_orders/static/src/js/models.js"></script>-->
+<!--            <script type="text/javascript" src="/pos_send_branch_orders/static/src/js/screens.js"></script>-->
+<!--            <script type="text/javascript" src="/pos_send_branch_orders/static/src/js/chrome.js"></script>-->
+
+<!--        </xpath>-->
+
+<!--          <xpath expr="//link[@id='pos-stylesheet']" position="after">-->
+<!--              <link rel="stylesheet" href="/pos_send_branch_orders/static/lib/multi-select/jquery.multiselect.css"/>-->
+<!--              <link rel="stylesheet" href="/pos_send_branch_orders/static/src/css/style.css"/>-->
+<!--              <link rel="stylesheet" href="/pos_send_branch_orders/static/lib/fontawesome/css/font-awesome-animation.min.css"/>-->
+<!--          </xpath>-->
+
+<!--    </template>-->
+<!--</odoo>-->
+

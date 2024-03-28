@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="combo_fixed_tree_view" model="ir.ui.view">
+        <field name="name">POS Combo Fixed Product</field>
+        <field name="model">fix.product.pack</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_template_id"/>
+                <field name="product_p_id" string="Fixed Products"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="product_combo_fixed_action" model="ir.actions.act_window">
+        <field name="name">POS Combo Fixed Product</field>
+        <field name="res_model">fix.product.pack</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="pos_combo_pack.combo_fixed_tree_view"/>
+    </record>
+
+
+    <menuitem action="product_combo_fixed_action" id="menu_combo_fixed_product"
+              name="Combo Fixed Product"
+              parent="stock.menu_stock_inventory_control" groups="base.group_erp_manager"
+              sequence="12"/>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="combo_selective_tree_view" model="ir.ui.view">
+        <field name="name">POS Combo Selective Product</field>
+        <field name="model">product.pack</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_template_id"/>
+                <field name="product_categ_id" />
+                <field name="product_selection" widget="many2many_tags" string="Selective Products"/>
+                <field name="hnh"/>
+                <field name="required_item"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="product_combo_selective_action" model="ir.actions.act_window">
+        <field name="name">POS Combo Selective Product</field>
+        <field name="res_model">product.pack</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="pos_combo_pack.combo_selective_tree_view"/>
+    </record>
+
+
+    <menuitem action="product_combo_selective_action" id="menu_combo_selective_product"
+              name="Combo Selective Product"
+              parent="stock.menu_stock_inventory_control" groups="base.group_erp_manager"
+              sequence="11"/>
+</odoo>

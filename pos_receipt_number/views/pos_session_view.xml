@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_session_form_custom_inherit_current_order_number" model="ir.ui.view">
+        <field name="name">pos.session.form.view.custom.inherit.current.order.number</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='start_at']" position="after">
+                <field name="current_sequence_number" string="Order Number" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

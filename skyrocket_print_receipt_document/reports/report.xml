@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="paper_format_mrp_receipt_pdf_custom" model="report.paperformat">
+            <field name="name">Subscription Receipt Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">100</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                string="Production Order Receipt"
+                id="action_report_production_order_receipt"
+                model="mrp.production"
+                name="skyrocket_print_receipt_document.template_report_production_order_receipt"
+                file="skyrocket_print_receipt_document.template_report_production_order_receipt"
+                report_type="qweb-pdf"
+                paperformat="skyrocket_print_receipt_document.paper_format_mrp_receipt_pdf_custom"
+        />
+
+        <report
+                string="Invoice Receipt"
+                id="action_report_invoice_receipt"
+                model="account.move"
+                name="skyrocket_print_receipt_document.report_invoice_receipt_document"
+                file="skyrocket_print_receipt_document.report_invoice_receipt_document"
+                report_type="qweb-pdf"
+                attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+                print_report_name="(object._get_report_base_filename())"
+                groups="account.group_account_invoice"
+                paperformat="skyrocket_print_receipt_document.paper_format_mrp_receipt_pdf_custom"
+        />
+
+        <report
+            string="Delivery Slip Receipt"
+            id="action_report_delivery_receipt"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="skyrocket_print_receipt_document.report_delivery_slip_receipt_document"
+            file="skyrocket_print_receipt_document.report_delivery_slip_receipt_document"
+            print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+            paperformat="skyrocket_print_receipt_document.paper_format_mrp_receipt_pdf_custom"
+        />
+
+        <report
+            id="action_report_payment_receipt"
+            model="account.payment"
+            string="Payment Receipt Document"
+            report_type="qweb-pdf"
+            name="skyrocket_print_receipt_document.report_payment_invoice_receipt_document"
+            file="skyrocket_print_receipt_document.report_payment_invoice_receipt_document"
+            paperformat="skyrocket_print_receipt_document.paper_format_mrp_receipt_pdf_custom"
+            menu="True"
+        />
+
+
+    </data>
+</odoo>

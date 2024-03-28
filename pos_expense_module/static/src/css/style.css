@@ -1,0 +1,20 @@
+#pos_expense_list{
+    height: 30px;
+    margin: 10px 0px;
+    font-size: 16px;
+    border: black;
+}
+
+.a_i_t{
+    margin: 10px 0px;
+}
+
+#amount_in_till{
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.bold_text{
+    font-weight: bold;
+}

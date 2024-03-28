@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="view_partner_tree_last_order" model="ir.ui.view">
+            <field name="name">view.partner.tree.last.order</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field[@name='company_id']" position="after">
+                    <field name="last_order_date" optional="hide"/>
+                    <field name="last_order_amount" optional="hide"/>
+                    <field name="total_orders_amount" optional="hide"/>
+                    <field name="total_orders_count" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

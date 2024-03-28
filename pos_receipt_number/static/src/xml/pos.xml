@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_receipt_number_template"  xml:space="preserve">
+
+<!--    <t t-extend="OrderSelectorWidget">-->
+<!--        <t t-jquery=".order-sequence" t-operation="before">-->
+<!--            <span class="pos-order-sequence">-->
+<!--                <t t-if="order.pos_sequence_number">-->
+<!--                    <t t-esc="order.pos_reference_number"/>-->
+<!--                </t>-->
+<!--                <t t-else="">-->
+<!--                    <span>&#45;&#45;</span>-->
+<!--                </t>-->
+<!--            </span>-->
+<!--        </t>-->
+<!--    </t>-->
+    <t t-inherit="point_of_sale.OrderWidget" t-inherit-mode="extension">
+        <xpath expr="//div/div/t[@t-else='']" position="replace">
+<!--            <t t-set="pos_reference_number" t-value="orderwidget_pos_reference_number()"/>-->
+<!--                <ul class="orderlines">-->
+<!--                    <t t-foreach="orderlinesArray" t-as="orderline" t-key="orderline.id">-->
+<!--                        <Orderline line="orderline" />-->
+<!--                    </t>-->
+<!--                </ul>-->
+<!--                <OrderSummary order="order" />-->
+        </xpath>
+    </t>
+
+</templates>

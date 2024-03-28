@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="delivery_slip_receipt_document">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family:'Inconsolata'">
+
+                    <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                    <t t-set="partner"
+                       t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
+
+                    <div align="center"
+                         style="border:1px solid black;margin:0 auto;padding:0 auto;font-size:25px">
+                        <strong>
+                            <span>DELIVERY CHALLAN</span>
+                        </strong>
+                    </div>
+
+                    <div align="center" style="margin:0 auto;padding:0 auto;font-size:20px;margin-top:8px;">
+                        <div style="font-size:13px;">
+                            <t t-if="o.company_id.name">
+                                <t t-esc="o.company_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.street">
+                                <t t-esc="o.company_id.street"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.street2">
+                                <t t-esc="o.company_id.street2"/>
+                            </t>
+                            <t t-if="o.company_id.city">
+                                <t t-esc="o.company_id.city"/>
+                            </t>
+                            <t t-if="o.company_id.state_id.name">
+                                <t t-esc="o.company_id.state_id.name"/>
+                            </t>
+                            <t t-if="o.company_id.country_id.name">
+                                <t t-esc="o.company_id.country_id.name"/>
+                            </t>
+                            <br/>
+                            <t t-if="o.company_id.phone">
+                                Tel:
+                                <t t-esc="o.company_id.phone"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.email">
+                                Email:
+                                <t t-esc="o.company_id.email"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.website">
+                                Website:
+                                <t t-esc="o.company_id.website"/>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+
+                    <div style="text-align:center;">************************************</div>
+                    <div style="text-align:center; font-size: 16px;">
+                        <b>Customer Details</b>
+                    </div>
+                    <div style="text-align:center;">************************************</div>
+                    <table style="width:100%;margin-top:15px;">
+                        <tr t-if="o.name">
+                            <td class="text-left">
+                                <strong>Delivery Slip Name</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.name"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.partner_id">
+                            <td class="text-left">
+                                <strong>Customer Name</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.partner_id"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                <strong>Operation Type</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.picking_type_id"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">
+                                <strong>Scheduled Date</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.scheduled_date"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-left">
+                                <strong>Source Document</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.origin"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div style="text-align:center;">************************************</div>
+                    <div style="text-align:center; font-size: 16px;">
+                        <strong>
+                            Product Details
+                        </strong>
+                    </div>
+                    <div style="text-align:center;">************************************</div>
+
+
+                    <table class="table table-sm o_main_table" name="invoice_line_table">
+                        <t t-set="i" t-value="1"/>
+
+                        <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                        <tr t-foreach="lines" t-as="line">
+                            <td class="text-left" width='10%'>
+                                <strong>
+                                    <span t-esc="i"/>)
+                                    <t t-set="i" t-value="i+1"/>
+                                </strong>
+                            </td>
+                            <td class="text-left" width='30%'>
+                                <strong>Product Name</strong>
+                            </td>
+                            <td class="text-right" width='60%'>
+                                <span t-field="line.product_id.name"/>
+                            </td>
+
+                            <colgroup>
+                                <col width='50%'/>
+                                <col width='25%'/>
+                                <col width='25%'/>
+                            </colgroup>
+                            <tr>
+                                <th style="border-right: 1px solid rgb(0, 0, 0); text-align:left">Demand
+                                </th>
+                                <th style="border-right: 1px solid rgb(0, 0, 0); text-align:center">
+                                    Reserved
+                                </th>
+                                <th style="text-align:center">Done</th>
+                            </tr>
+
+                            <td style="border-right: 1px solid rgb(0, 0, 0); text-align:center">
+                                <span>
+                                    <t t-esc="line.product_uom_qty"/>
+                                </span>
+                            </td>
+
+                            <td  style="border-right: 1px solid rgb(0, 0, 0); text-align:center">
+                                <span>
+                                    <t t-esc="line.reserved_availability"/>
+                                </span>
+                            </td>
+
+                            <td style="text-align:center">
+                                <span>
+                                    <t t-esc="line.quantity_done"/>
+                                    <t t-esc="line.product_uom.name"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_delivery_slip_receipt_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="skyrocket_print_receipt_document.delivery_slip_receipt_document"
+                   t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
+
+
+
+
+

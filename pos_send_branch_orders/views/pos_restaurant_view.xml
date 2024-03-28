@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <!--    Floor Form View    -->
+        <record id="view_restaurant_floor_form_inherited_call_center" model="ir.ui.view">
+            <field name="name">view_restaurant_floor_form_inherited_call_center</field>
+            <field name="model">restaurant.floor</field>
+            <field name="inherit_id" ref="pos_restaurant.view_restaurant_floor_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='background_color']" position="after">
+                        <field name="is_call_center"/>
+                </xpath>
+                <xpath expr="//field[@name='table_ids']//tree//field[@name='name']" position="after">
+                    <field name="destination_config_id" attrs="{'column_invisible': [('parent.is_call_center', '=', False)], 'required': [('parent.is_call_center', '=', True)]}"/>
+                    <field name="destination_table" widget="selection" attrs="{'column_invisible': [('parent.is_call_center', '=', False)], 'required': [('parent.is_call_center', '=', True)]}"/>
+                    <field name="is_call_center" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--Floor / Table Form-->
+        <record id="view_restaurant_table_form_inherited_call_center" model="ir.ui.view">
+            <field name="name">view_restaurant_table_form_inherited_call_center</field>
+            <field name="model">restaurant.table</field>
+            <field name="inherit_id" ref="pos_restaurant.view_restaurant_table_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <group col="4" string="Call Center Destination Configuration" attrs="{'invisible': [('parent.is_call_center', '=', False)]}">
+                        <field name="destination_config_id" force_save="1" attrs="{'invisible': [('parent.is_call_center', '=', False)], 'required': [('parent.is_call_center', '=', True)]}"/>
+                        <field name="destination_table" context="{'show_floor_table': True}" force_save="1" options="{'no_create': True,'no_open': True}" attrs="{'invisible': [('parent.is_call_center', '=', False)], 'required': [('parent.is_call_center', '=', True)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--    Floor Tree View    -->
+        <record id="view_restaurant_floor_tree_inherited_call_center" model="ir.ui.view">
+            <field name="name">view_restaurant_floor_tree_inherited_floor_delivery</field>
+            <field name="model">restaurant.floor</field>
+            <field name="inherit_id" ref="pos_restaurant.view_restaurant_floor_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field[@name='name']" position="after">
+                    <field name="is_call_center" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

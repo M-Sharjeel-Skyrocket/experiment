@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+     <t t-extend="OrderReceipt">
+        <t t-jquery=".pos-receipt .orderlines" t-operation='replace'>
+            <table class="receipt-orderlines">
+                <colgroup>
+                    <col width='50%'/>
+                    <col width='25%'/>
+                    <col width='25%'/>
+                </colgroup>
+                <tr t-foreach="orderlines" t-as="orderline">
+                    <td>
+                        <t t-esc="orderline.get_product().display_name"/>
+                        <t t-if="orderline.get_product().is_pack and orderline.pack_data">
+				            <br/>Combo
+                            <br/>
+                            <table>
+				                <colgroup>
+				                    <col width='13%'/>
+                                    <col width='87%'/>
+				                </colgroup>
+                                <tr t-foreach="orderline.pack_data" t-as="line">
+				                    <td><t t-esc="line.qty * orderline.quantity"/></td>
+                                    <td><span style="font-style: italic;font-size:13px;font-weight: bold;" ><t t-esc="line.product_id.display_name"/></span></td>
+				                </tr>
+				            </table>
+			        	</t>
+                        <t t-if="orderline.get_product().is_extra and orderline.order_menu">
+                            <t t-foreach="orderline.order_menu" t-as="order_menu">
+                                <div style="font-weight: bold;"><t t-esc="order_menu.categoryName"/></div>
+                                <table>
+                                    <colgroup>
+                                        <col width='13%'/>
+                                        <col width='87%'/>
+                                    </colgroup>
+                                    <tr t-foreach="order_menu.products" t-as="line">
+                                        <td><t t-esc="orderline.quantity"/></td>
+                                        <td><span style="font-style: italic;font-size:13px;font-weight: bold;" ><t t-esc="line.product_name"/></span></td>
+                                    </tr>
+                                </table>
+                            </t>
+                        </t>
+
+                        <t t-if="orderline.get_discount() > 0">
+                            <div class="pos-disc-font">
+                                With a <t t-esc="orderline.get_discount()"/>% discount
+                            </div>
+                        </t>
+                    </td>
+                    <td class="pos-right-align" valign="top">
+                        <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                    </td>
+                    <td class="pos-right-align" valign="top">
+                        <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                    </td>
+                </tr>
+            </table>
+        </t>
+   </t>
+</templates>

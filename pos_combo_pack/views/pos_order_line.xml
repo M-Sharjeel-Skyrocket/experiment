@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+		<record id="inherit_view_pos_pos_form_combo_packs" model="ir.ui.view">
+			<field name="name">inherit_view_pos_pos_form_combo_packs</field>
+			<field name="model">pos.order</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='session_id']" position="after">
+                    <field name="finalized_order" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='lines']//tree//field[@name='full_product_name']" position="after">
+                    <field name="is_extra" invisible="1"/>
+                    <field name="is_pack" invisible="1"/>
+                    <field name="combo_ids" invisible="1"/>
+                    <field name="own_ids" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='lines']//form//field[@name='notice']" position="after">
+                    <field name="is_extra"/>
+                    <field name="is_pack"/>
+                    <field name="combo_ids"/>
+                    <field name="own_ids"/>
+                </xpath>
+			</field>
+		</record>
+
+    </data>
+</odoo>

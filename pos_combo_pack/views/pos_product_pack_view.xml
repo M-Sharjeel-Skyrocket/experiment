@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_combo" model="ir.ui.view">
+        <field name="name">product.template.combo.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[@name='options']" position="inside">
+                <field name="is_pack"/>
+                <label for="is_pack"/>
+            </xpath>
+            <xpath expr="//page[@name='sales']/group[@name='sale']" position="after">
+                <div><h3>Selective product pack</h3></div>
+                <field name="product_pack_id" nolabel="1" attrs="{'invisible':[('is_pack','=',False)]}">
+                    <tree editable="bottom" string="Selective product pack">
+                        <field name="product_categ_id" options="{'no_create': True}"/>
+                        <field name="product_template_id" invisible="1"/>
+                        <field name="product_selection" widget="many2many_tags"/>
+                        <field name="hnh"/>
+                        <field name="required_item"/>
+                    </tree>
+                </field>
+                <div><h3>Fix product pack</h3></div>
+                <field name="product_fix_pro_ids" nolabel="1" attrs="{'invisible':[('is_pack','=',False)]}">
+                    <tree editable="bottom">
+                        <field name="product_p_id" options="{'no_create': True}"  domain="[('available_in_pos','=',True)]"/>
+                        <field name="product_quantity"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="product_template_form_view_topping" model="ir.ui.view">
+        <field name="name">product.template.topping.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[@name='options']" position="inside">
+                <field name="is_extra"/>
+                <label for="is_extra"/>
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='sales']" position="inside">
+                <field name="product_extra_id" nolabel="1" attrs="{'invisible':[('is_extra','=',False)]}">
+                    <tree editable="bottom" string="Taxes">
+                        <field name="product_categ_id"/>
+                        <field name="multi_selection"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

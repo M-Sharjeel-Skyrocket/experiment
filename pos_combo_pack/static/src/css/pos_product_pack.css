@@ -1,0 +1,253 @@
+.product_pack{
+    background: green;
+    position: absolute;
+    top: 69px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    opacity: 0.8;
+    width: 100%;
+}
+
+.combo_background{
+	background: lawngreen !important;
+	opacity: 0.5 !important;	
+}
+/*
+.topping_background{
+    background: yellow !important;
+    opacity: 0.5 !important;    
+}
+*/
+.pos .product .product-qty-low {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    background: red;
+    padding: 2px 5px;
+    border-radius: 2px;
+}
+
+/*#*/
+.pos .product .qty-tag {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    background: #7f82ac;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: green;
+    opacity: 0.6;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+.pos .product .qty-tag.not-available {
+    background: #d882ac;
+}
+
+.pos .order .orderline .qty-info{
+    color: #777;
+    font-weight: bold;
+    font-style: normal;
+}
+.pos .order .orderline .qty-info.not-available{
+    color:red;
+}
+
+.product_extra{
+    background: red;
+    position: absolute;
+    top: 69px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    opacity: 0.6;
+    width: 100%;
+}
+
+.pos .product .product-qty {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    background: green;
+    opacity: 0.6;
+    padding: 2px 5px;
+    border-radius: 2px;
+}
+
+/*#*/
+.pos .product .qty-tag {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    background: #7f82ac;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: green;
+    opacity: 0.6;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-weight: bold;
+}
+.pos .product .qty-tag.not-available {
+    background: #d882ac;
+}
+
+.pos .order .orderline .qty-info{
+    color: #777;
+    font-weight: bold;
+    font-style: normal;
+}
+.pos .order .orderline .qty-info.not-available{
+    color:red;
+}
+
+.ui-tabs.ui-tabs-vertical {
+    padding: 0;
+    width: 74em;
+}
+.ui-tabs.ui-tabs-vertical .ui-widget-header {
+    border: none;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    overflow: hidden;
+    width: 20%;
+    padding: 0 5%;
+    border-radius: 4px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+    clear: left;
+    margin: 0.5em 0;
+    border-width: 1px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    right: -2px;
+    z-index: 2;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+    display: block;
+    width: 100%;
+    padding: 0.6em 0;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+    cursor: pointer;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0.2em;
+    padding-bottom: 0;
+    background:#ffb74d;
+    color: white;
+    border-right: 1px solid white;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+    margin-bottom: 10px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+    float: left;
+    width: 70%;
+    height: 28em;
+    border-radius: 0;
+    position: relative;
+    left: -1px;
+}
+
+
+.pos .product{
+    border-width: 2px;
+}
+
+.green_border{
+    border-color: green !important;
+}
+
+.single-menu{
+    background:#ffffff;
+    border-radius:10px;
+    padding:30px;
+    margin-top:20px;
+    box-shadow: 0px 10px 30px 0px rgba(182, 136, 52, 0.2);
+    p{
+        margin-bottom:0px;
+        max-width:392px;
+    }
+    
+}
+.single-menu .title-div {
+  padding-bottom: 20px;
+}
+
+.single-menu .price {
+  color: #b68834;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.single-menu p {
+  margin-bottom: 0;
+
+}
+.d-flex {
+  display: flex !important;
+}
+
+.d-inline-flex {
+  display: inline-flex !important;
+}
+
+.section-gap {
+    padding: 120px 0;
+}
+.section-title {
+    padding-bottom: 30px;
+    h2 {
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 16px;
+        margin-bottom: 0;
+        @include media-breakpoint-down (md) {
+            br {
+                display: none;
+            }
+        }
+    }
+}
+
+.pos .simple_keyboard{
+    display: none !important;
+}
+
+#combo-qty {
+  width: 50%;
+  float: left;
+  margin-top: 10px;
+  text-align: left;
+  margin-left: 10px;
+}
+#combo-qty > button {
+  padding: 3px 13px;
+  font-size: 21px;
+}
+
+.flavour-warning {
+  color: red;
+}

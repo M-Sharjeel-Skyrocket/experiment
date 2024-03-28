@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_cash_in_out_custom" model="res.groups">
+        <field name="name">Point of Sale/Cash In/Out Enable</field>
+        <field name="category_id" ref="skyrocket_restaurant_security.point_of_sale_fo"/>
+    </record>
+
+    <data noupdate="1">
+      <record id="base.default_user" model="res.groups">
+          <field name="implied_ids" eval="[(4, ref('pos_expense_module.group_cash_in_out_custom'))]"/>
+      </record>
+
+      <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4, ref('group_cash_in_out_custom'))]"/>
+      </record>
+    </data>
+
+    <record id="rule_cash_in_out_multi_company" model="ir.rule">
+        <field name="name">Cash In/Out</field>
+        <field name="model_id" ref="model_pos_cash_in_out" />
+        <field name="global" eval="True" />
+        <field name="domain_force">['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+    </record>
+</odoo>

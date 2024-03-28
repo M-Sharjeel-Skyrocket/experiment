@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="HeaderBell" owl="1">
+        <div class="header-button bell-counter-container" >
+            <span>
+                <i class="fa" t-on-mouseover="() => this.onMouseOver(true)"
+                  t-on-mouseout="() => this.onMouseOver(false)"
+                   t-att-class="state.isMouseOver ? icon_mouseover : icon"
+                   t-att-style="state.isMouseOver ? 'color:' + icon_color_mouseover : 'color:' + icon_color"
+                   role="img"></i>
+            </span>
+            <span t-att-class="'bell_counter' + (state.counter > 0 ? '' : ' oe_hidden')">
+                <t t-esc="state.counter"/>
+            </span>
+        </div>
+    </t>
+
+</templates>

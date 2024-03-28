@@ -1,0 +1,22 @@
+{
+    'name': 'SkyRocket Document Print',
+    'version': '13.1.0',
+    'category': 'Base',
+    'summary': 'This module will print like a receipt print in odoo.',
+    'description': """ """,
+    'author': 'SkyRocket',
+    'website': "https://www.skyrocket.com.pk",
+    'company': 'Sky Rocket Solutions',
+    'depends': ['base', 'mrp', 'account'],
+    'data': [
+        'reports/production_order_receipt.xml',
+        'reports/invoice_receipt.xml',
+        'reports/delivery_slip_receipt.xml',
+        'reports/payment_note_receipt.xml',
+        'reports/report.xml',
+    ],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

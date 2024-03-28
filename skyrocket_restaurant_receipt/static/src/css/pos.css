@@ -1,0 +1,32 @@
+.pos-receipt{
+    font-family: 'Helvetica';
+}
+.compnay_info {
+  font-size: 14px;
+}
+.receipt_swag {
+  /* line-height: 21px;*/
+}
+.receipt_swag > div {
+  padding: 3px;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.company_branding > p {
+  margin: 0;
+  font-size: smaller !important;
+  font-family: Cursive;
+}
+.sales_receipt > h3 {
+  margin: 0;
+}
+.receipt-total > table {
+  width: 100%;
+}
+.receipt-change > table {
+  width: 100%;
+}

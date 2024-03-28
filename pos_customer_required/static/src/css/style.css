@@ -1,0 +1,58 @@
+.easy-autocomplete.eac-bootstrap input {
+    width: 100%;
+}
+.easy-autocomplete {
+    width: 60%;
+    display: inline-grid;
+}
+.easy-autocomplete-container {
+    top: 100%;
+}
+.customer-input {
+    width:60% !important;
+    font-size: 15px !important;
+}
+.customer-input:disabled {
+    background: #d7d7d7 !important;
+    border: 1px solid gray;
+}
+.customer_phone:disabled {
+    background: #d7d7d7 !important;
+    border: 1px solid gray;
+}
+.c-form {
+    padding: 0px 20px;
+    height: inherit;
+    overflow-y: scroll;
+}
+.f-group {
+    text-align: right;
+    margin: 4px 0px;
+}
+.f-label {
+    float: left;
+    margin-top: 10px;
+}
+.eac-item > span {
+  font-size: 1.2em !important;
+  color: #595757 !important;
+}
+.reset_customer {
+  float: left !important;
+  margin-left: 10px;
+  background-color: #72d9a9 !important;
+  color: white;
+}
+#other_address {
+    text-align: left;
+    font-size: medium;
+}
+#other_address input {
+  min-height: auto;
+  width: auto;
+}
+
+.f-group input, label {
+  height: auto;
+  min-height: auto !important;
+}

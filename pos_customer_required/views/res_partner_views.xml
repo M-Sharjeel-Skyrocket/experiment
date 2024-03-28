@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_branch_company" model="ir.ui.view">
+        <field name="name">res.partner.inherit.tree.branch.company</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="branch_company_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_form_inherit_multi_address" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit.multi.address</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Other Addresses">
+                    <field name="partner_addresses_ids" context="{'default_partner_id':active_id}">
+                        <tree editable="bottom">
+                            <field name="partner_id" invisible="1"/>
+                            <field name="address"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <field name="vat" position="after">
+                <field name="partner_addresses_array" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
+
+

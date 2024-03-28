@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<templates xml:space="preserve">
+    <t t-name="InheritActionpadWidget" t-inherit="point_of_sale.ActionpadWidget" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('set-partner')]" position="replace">
+            <button t-attf-class='button set_customer_custom #{ ( props.partner and props.partner.name.length > 10) ? "decentered" : "" }' >
+                <i class='fa fa-user' role="img" aria-label="Customer" title="Customer"/>
+                <t t-if="props.partner">
+                    <t t-esc="props.partner.name" />
+                </t>
+                <t t-if="!props.partner">
+                    Customer
+                </t>
+            </button>
+        </xpath>
+    </t>
+
+    <t t-name="CustomerPopUp" owl="1">
+        <div class="modal-dialog" role="dialog">
+            <div class="popup popup-selection form-group customer-selection" style="height: 75%;">
+                <p class="title">Customer Details</p>
+                <div class="c-form">
+                    <div class="f-group">
+                        <label class="f-label" for="customer_phone">Customer Phone: </label>
+                        <input type="text" style="width: 100% !important;" class="customer_phone customer-input"
+                               t-model="state.customer_phone" t-on-input="verify_customer" id="customer_phone"/>
+                    </div>
+
+                    <div class="f-group secondary_phone">
+                        <label class="f-label" for="secondary_phone">Secondary Phone: </label>
+                        <input class="customer-input" id="secondary_phone" type="text" autocomplete="off" t-model="state.customer_secondary_phone"/>
+                    </div>
+
+                    <div class="f-group customer_name">
+                        <label class="f-label" for="customer_name">Customer Name: </label>
+                        <input class="customer-input" id="customer_name" type="text" autocomplete="off" t-model="state.customer_name"/>
+                    </div>
+
+                    <div class="f-group customer_address">
+                        <label class="f-label" for="customer_address">Delivery Address: </label>
+                        <input class="customer-input" id="customer_address" type="text" autocomplete="off" t-model="state.customer_address"/>
+                    </div>
+
+                    <div class="f-group customer_address new_address">
+                        <label class="f-label" for="customer_address">New Delivery Address: </label>
+                        <input class="customer-input" id="new_address" type="text" autocomplete="off" t-model="state.customer_secondary_address"/>
+                    </div>
+
+                    <div id="other_address" t-on-click="onchange_other_address">
+                    </div>
+
+                </div>
+
+                <div class="footer">
+                    <div class="button cancel" t-on-click="cancel">
+                        <t t-esc="props.cancelText" />
+                    </div>
+                    <div class="button confirm" t-on-click="confirm">
+                        <t t-esc="props.confirmText" />
+                    </div>
+                    <div class="button reset_customer" t-on-click="reset_customer">
+                        Reset
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

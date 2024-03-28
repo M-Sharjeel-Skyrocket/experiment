@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt')]" position="replace">
+            <div class="pos-sale-ticket pos-receipt">
+                <div class="receipt_swag text-center">
+                    <div class="receipt_compnay_info" style="border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                        <div style="width: 100%; text-align:center;">
+                            <img t-att-src='env.pos.company_logo_base64' style="width:50%"/>
+                        </div>
+                        <t t-if="env.pos.company.name">
+                            <h4 style="margin:0px;"> <t t-esc="env.pos.company.name"/> </h4>
+                        </t>
+                        <t t-if="env.pos.company.street">
+                            <span t-esc="env.pos.company.street"/>
+                            <br/>
+                        </t>
+                        <t t-if="env.pos.company.street2">
+                            <span t-esc="env.pos.company.street2"/>
+                            <br/>
+                        </t>
+                        <t t-if="env.pos.company.email">
+                            <t t-esc="env.pos.company.email"/>
+                            <br/>
+                        </t>
+                        <t t-if="env.pos.company.website">
+                            <t t-esc="env.pos.company.website"/>
+                            <br/>
+                        </t>
+                        <t t-if="env.pos.company.phone">
+                            <t t-esc="env.pos.company.phone || ''"/>
+                            <br/>
+                        </t>
+                    </div>
+                    <div t-if="receipt.header" class="receipt_header" style="border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                        <t t-esc="receipt.header"/>
+                        <br/>
+                    </div>
+                    <t t-if="env.pos.get_order().get_pos_mode()">
+                        <div class="sales_receipt" style="border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                            <h3><t t-esc="env.pos.get_order().get_pos_mode()"></t></h3>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="sales_receipt transaction_mode" style="border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                            <h3>Sales Receipt</h3>
+                        </div>
+                    </t>
+                    <div class="receipt_order_info text-left" style="border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                        <strong>Receipt #: </strong>
+                        <t t-if="env.pos.get_order().pos_reference_number" t-esc="env.pos.get_order().pos_reference_number"/>
+                        <t t-else="" t-esc="env.pos.get_order().uid"/>
+                        <br/>
+                        <strong>Date : </strong>
+                        <span t-esc="env.pos.get_order().getCurrentDateTime()" />
+                        <br/>
+                        <strong>Cashier: </strong>
+                        <t t-esc="env.pos.get_cashier() ? env.pos.get_cashier().name : env.pos.user.name"/>
+                        <t t-if="env.pos.hasOwnProperty('table')">
+                            <t t-if="env.pos.table">
+                                <div t-if="1 in env.pos.table.floor_id || env.pos.table.name" style="width: 100%; text-align: left;">
+                                    <span style="font-weight: bolder;"> <t t-esc="env.pos.table.floor_id[1]"/> - <t t-esc="env.pos.table.name"/></span>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                    <div t-if="receipt.partner" class="receipt_customer_info text-left" style="border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                        <t t-if="receipt.partner">
+                            <strong>Customer: </strong><t t-esc="receipt.partner.name"/>
+                            <br/>
+                            <t t-if="receipt.partner.phone">
+                                <strong>Phone: </strong> <t t-esc="receipt.partner.phone"/>
+                                <br/>
+                            </t>
+                            <t t-if="receipt.partner.mobile">
+                                <strong>Secondary #: </strong> <t t-esc="receipt.partner.mobile"/>
+                                <br/>
+                            </t>
+                            <t t-if="receipt.partner.street">
+                                 <strong>Address:</strong> <t t-esc="receipt.partner.street"/>
+                            </t>
+                            <t t-if="receipt.partner.stree2">
+                                    <t t-esc="receipt.partner.stree2"/>
+                                </t>
+                            </t>
+                    </div>
+                </div>
+                <!--receipt-orderlines-->
+                <div class="receipt_swag receipt-orderlines" style="padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <table class='receipt-orderlines' style="width:100%; text-align:left;">
+                        <colgroup>
+                            <col width='20%'/>
+                            <col width='15%'/>
+                            <col width='20%'/>
+                            <col width='20%'/>
+                            <col width='20%'/>
+                        </colgroup>
+                        <tr style="border-bottom: 1px solid rgb(0, 0, 0);">
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th style="text-align: center;">Disc.</th>
+                            <th style="text-align: right;">Amount</th>
+                        </tr>
+                        <tr t-foreach="receipt.orderlines" t-as="orderline" t-key="orderline.id">
+                            <t t-set="discount" t-value="0"/>
+                            <tr>
+                                <td colspan="5"><t t-esc="orderline.product_name_wrapped[0]"/></td>
+                            </tr>
+                            <td></td>
+                            <td>
+                                <t t-esc="orderline.quantity"/>
+                            </td>
+                            <td>
+                                <t t-esc="env.pos.format_currency_no_symbol(orderline.price_display)" />
+                            </td>
+                            <td>
+                                <t t-if="orderline.discount > 0">
+                                    <t t-set="discount" t-value="(orderline.price_display * orderline.get_discount() / 100).toFixed(2)"/>
+                                    <span t-esc="discount"/>
+                                </t>
+                            </td>
+                            <td style='text-align:right'>
+                                <t t-set="a" t-value="orderline.quantity"></t>
+                                <t t-set="b" t-value="orderline.price"></t>
+                                <t t-set="c" t-value="(a*b).toFixed(2)"></t>
+                                <t t-esc="c"/>
+                            </td>
+    <!--                        <t t-if="orderline.product_name_wrapped[0].is_pack and orderline.pack_data">-->
+                            <!-- <br/>Combo<br/> -->
+    <!--                            <tr>-->
+    <!--                            <td colspan="5">-->
+    <!--                                <table>-->
+    <!--                                    <colgroup>-->
+    <!--                                        <col width='13%'/>-->
+    <!--                                        <col width='87%'/>-->
+    <!--                                    </colgroup>-->
+    <!--                                        &lt;!&ndash;  <tr t-foreach="orderline.pack_data" t-as="line">&ndash;&gt;-->
+    <!--                                        &lt;!&ndash;  <td><t t-esc="line.qty * orderline.quantity"/></td>&ndash;&gt;-->
+    <!--                                        &lt;!&ndash;  <td><span><t t-esc="line.product_id.display_name"/></span></td>&ndash;&gt;-->
+    <!--                                        &lt;!&ndash;  </tr>&ndash;&gt;-->
+    <!--                                </table>-->
+    <!--                            </td>-->
+    <!--                        </tr>-->
+    <!--                    </t>-->
+    <!--                    <t t-if="orderline.get_product().is_extra and orderline.order_menu">-->
+    <!--                            <t t-foreach="orderline.order_menu" t-as="order_menu">-->
+    <!--                                <tr>-->
+    <!--                                    <td colspan="5">-->
+    <!--                                        <div><t t-esc="order_menu.categoryName"/></div>-->
+    <!--                                        <table>-->
+    <!--                                            <colgroup>-->
+    <!--                                                <col width='13%'/>-->
+    <!--                                                <col width='87%'/>-->
+    <!--                                            </colgroup>-->
+    <!--                                            <tr t-foreach="order_menu.products" t-as="line">-->
+    <!--                                                <td><t t-esc="orderline.quantity"/></td>-->
+    <!--                                                <td><span><t t-esc="line.product_name"/></span></td>-->
+    <!--                                            </tr>-->
+    <!--                                        </table>-->
+    <!--                                    </td>-->
+    <!--                                </tr>-->
+    <!--                            </t>-->
+    <!--                        </t>-->
+                            <t t-if="orderline.note">
+                                <tr>
+                                    <td colspan="5" style="text-align : left;">
+                                        <em>- <t t-esc="orderline.note" /></em>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tr>
+                    </table>
+                </div>
+                <!--receipt-ordernote-->
+                <div class="receipt_swag receipt-ordernote" style="padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <t t-if="receipt.hasOwnProperty('order_note')">
+                        <t t-if="receipt.order_note">
+                            <div style="width: 100%; text-align: left;">
+                                <span> Note: <t t-esc="receipt.order_note"/> </span>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+                <!-- receipt-total-->
+                <div class="receipt_swag receipt-total" style="padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <table class='receipt-total'>
+                        <colgroup>
+                            <col width='30%'/>
+                            <col width='30%'/>
+                            <col width='40%'/>
+                        </colgroup>
+                        <tr>
+                            <td></td>
+                            <td>Subtotal:</td>
+                            <td style='text-align:right;'>
+                                <t t-if="receipt.total_discount">
+                                    <t t-esc="env.pos.format_currency(receipt.price_subtotal + receipt.total_discount)"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="env.pos.format_currency(receipt.total_without_tax)"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <t t-foreach="receipt.tax_details" t-as="taxdetail" t-key="taxdetail.tax.id">
+                            <tr>
+                                <td></td>
+
+                                <td><t t-esc="taxdetail.name" /></td>
+                                <td style='text-align:right'>
+                                    <t t-esc="env.pos.format_currency_no_symbol(taxdetail.amount)"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr t-if="receipt.total_discount">
+                            <td></td>
+                            <td>Discount:</td>
+                            <td style='text-align:right'>
+                                <t t-esc="env.pos.format_currency(receipt.total_discount)"/>
+                            </td>
+                        </tr>
+                        <tr class="emph">
+                            <td></td>
+                            <td>Total:</td>
+                            <td style='text-align:right'>
+                                <t t-esc="env.pos.format_currency(receipt.total_with_tax)"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--receipt-paymentlines-->
+                <div t-if="receipt.paymentlines" class="receipt_swag receipt-paymentlines"
+                     style="padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <table class='receipt-paymentlines'>
+                        <colgroup>
+                            <col width='30%'/>
+                            <col width='30%'/>
+                            <col width='40%'/>
+                        </colgroup>
+                        <t t-foreach="receipt.paymentlines" t-as="line" t-key="line.cid">
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <t t-esc="line.name"/>
+                                </td>
+                                <td style='text-align:right; width:120px;'>
+<!--                                  <t t-esc="env.pos.format_currency_no_symbol(line.amount)"/>-->
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+                <!--receipt-change-->
+                <div t-if="receipt.change > 0" class="receipt_swag receipt-change" style="padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <table class='receipt-change'>
+                        <colgroup>
+                            <col width='30%'/>
+                            <col width='30%'/>
+                            <col width='40%'/>
+                        </colgroup>
+                        <tr>
+                            <td></td>
+                            <td>Change:</td>
+                            <td style='text-align:right;'>
+                                <t t-esc="env.pos.format_currency(receipt.change)"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div t-if="receipt.reason" class="return_reason receipt_swag"
+                    style="text-align: center;
+                    font-weight: bold;
+                    font-size: 15px;
+                    text-transform: capitalize;
+                    padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <label>Return Reason: </label>
+                    <span t-esc="receipt.return_text"/>
+                </div>
+                <div t-if="receipt.footer" class="text-center" style="padding: 5px; border: 1px solid rgb(0, 0, 0); border-width: 1px 1px 0 1px;">
+                    <t t-esc="receipt.footer"/>
+                </div>
+                <div class="text-center company_branding" style="padding: 5px; border: 1px solid rgb(0, 0, 0);">
+                    <p>Software developed by <b><em>Sky Rocket</em></b><br/>
+                    www.skyrocket.com.pk | 021-34836533 </p>
+                </div>
+                <small>Ref:<t t-esc="env.pos.get_order().uid"/></small>
+            </div>
+        </xpath>
+    </t>
+</templates>

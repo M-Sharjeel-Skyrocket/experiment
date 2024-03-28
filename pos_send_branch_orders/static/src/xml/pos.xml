@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_send_to_branch_odoo_template" xml:space="preserve">
+
+    <t t-name="SendToBranchButton" owl="1">
+        <div class='control-button o_send_order_button'>
+            <i class='fa fa-building' role="img" aria-label="Send to Branch" title="Send to Branch"/> Send to Branch
+        </div>
+    </t>
+
+<!--    <t t-name="Chrome" t-inherit="point_of_sale.Chrome" t-inherit-mode="extension" owl="1">-->
+<!--        <xpath expr="//HeaderButton" position="before">-->
+<!--            <HeaderBell/>-->
+<!--        </xpath>-->
+<!--    </t>-->
+<!--    -->
+    <t t-name="Chrome" t-inherit="point_of_sale.Chrome" t-inherit-mode="extension" owl="1">
+        <xpath expr="//SyncNotification" position="after">
+            <HeaderBell/>
+        </xpath>
+    </t>
+
+    <t t-name="CallCenterOrdersButton" owl="1">
+        <span class="icon order-button square callcenterorders-button" title="Call Center Orders" style="float: right;">
+            <i class="oe_link_icon oe-link fa fa-building oe-white" />
+        </span>
+    </t>
+
+
+    <t t-name="CCOrdersPopUpWidget" owl="1">
+        <div class="modal-dialog" role="dialog">
+            <div class="popup popup-text" style="height: 550px; width: 80% !important;">
+                <header class="title">Call Center Orders</header>
+                <select class="selectpicker-multi" name="langOpt[]" multiple="multiple">
+                    <option value="phone">Phone</option>
+                    <option value="address">Address</option>
+                </select>
+                <main id="cc-orders">
+                </main>
+                <footer class="footer">
+                    <div class="button refresh_data">
+                        Refresh Data
+                    </div>
+                    <div class="button cancel">
+                        Close
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+
+
+
+</templates>
